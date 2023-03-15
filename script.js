@@ -54,6 +54,7 @@ let hideChildren = (item) => {
         items.remove(item.children[i]);
     }
     items.update(item);
+    //sortChildren(item);
 }
 
 let addChild = (item, child) => {
@@ -64,7 +65,7 @@ let addChild = (item, child) => {
     }
     item.children.push(child);
     items.update(item);
-    //showChildren(item);
+    sortChildren(item);
 }
 
 
@@ -125,5 +126,52 @@ let addChildButton = () => {
     showChildren(parentItem);
 }
 
+let sortChildren = (item) => {
+    
+    let children = item.children;
+
+    //bubble sort pls 
+    for(let i = 0; i < children.length; i++){
+        for(let j = 0; j < children.length - i - 1; j++){
+            if(children[j].id < children[j+1].id){
+                let temp = children[j];
+                children[j] = children[j+1];
+                children[j+1] = temp;
+                console.log(children[i].id + " " + children[j+1].id);
+            }
+        }
+    }
+    item.children = children;
+    items.update(item);
+    console.log(item);
+
+}
 
 
+//TODO: sort the groups by id (porco dio)
+//al me di ieri: non funziona perchè credo che dovrei cambiare l'ID della prima task e facendo così darebbe errore sulle sue sotto-taks
+
+let sortGroups = (item) => {
+
+    let groupMembers = items.get();
+
+    //bubble sort pls
+    for(let i = 0; i < groupMembers.length; i++){
+        for(let j = 0; j < groupMembers.length - i - 1; j++){
+            if(groupMembers[j].id < groupMembers[j+1].id){
+                let temp = groupMembers[j];
+                groupMembers[j] = groupMembers[j+1];
+                groupMembers[j+1] = temp;
+
+            }
+        }
+    }
+
+    console.log(groupMembers);
+    items.update(groupMembers);
+    
+
+
+
+
+}
